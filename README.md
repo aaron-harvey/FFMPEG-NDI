@@ -13,27 +13,27 @@ sudo apt install git
 Clone this repository
 
 ```
-git clone https://github.com/lplassman/FFMPEG-NDI.git
+git clone https://github.com/aaron-harvey/FFMPEG-NDI.git
 ```
 
 Clone the FFMPEG repository and `cd` into it
 
 ```
-git clone https://git.ffmpeg.org/ffmpeg.git && cd ffmpeg
+git clone -b n5.1 https://git.ffmpeg.org/ffmpeg.git --single-branch && cd ffmpeg
 ```
 
-Checkout 4.4 or later version of FFMPEG
-```
-git checkout n5.1
-```
-### Apply Generic GitHub Email
+### Configure Git Email
 ```
 git config user.email "you@example.com"
 ```
-### Apply Patch to revert changes when NDI was removed from FFMPEG
+### Apply Patches
 ```
-sudo git am ../FFMPEG-NDI/libndi.patch
-sudo cp ../FFMPEG-NDI/libavdevice/libndi_newtek_* libavdevice/
+# revert changes when NDI was removed from FFMPEG
+git am ../FFMPEG-NDI/patches/libndi.patch
+cp ../FFMPEG-NDI/patches/libavdevice/libndi_newtek_* libavdevice/
+
+# patch mathops header file
+git am ../FFMPEG-NDI/patches/mathops.patch
 ```
 At this point, FFMPEG is now reverted back to the way it was before NDI was removed from it.
 
